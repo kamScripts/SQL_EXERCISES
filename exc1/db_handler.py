@@ -23,21 +23,15 @@ class Db_handler:
             cursor = connection.cursor()
             cursor.execute(query)
             connection.commit()
-    def if_table_exists(self, table_name) -> bool:
+    def if_table_exists(self, table_name: str) -> bool:
         """Check if a table exists in the SQLite database."""
         # sqlite_master is a table that contains records of all tables inside the database.
         # including type, name,, tbl_name, rootpage, and sql.
         query = "SELECT name FROM sqlite_master WHERE type='table' AND name=?;"
-        
-        
+
         with sqlite3.connect(self.db_name) as connection:
             cursor = connection.cursor()
             result = cursor.execute(query, (table_name,)).fetchone()
         # if table exists fetchone() returns tuple with table name, otherwise returns NoneType.
         return result is not None
-                    
-
-
-
-
 
